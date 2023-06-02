@@ -22,6 +22,7 @@ for FILE in $STAGED_FILES
 do
     ./vendor/bin/pint "${FILE}" > /dev/null >&1;
     git add "${FILE}";
+    echo "Arquivos formatados com sucesso! ... 😉";
 done;
 
 exit 0;
