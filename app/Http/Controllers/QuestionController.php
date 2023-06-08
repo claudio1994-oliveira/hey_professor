@@ -21,7 +21,7 @@ class QuestionController extends Controller
                 },
             ],
         ]);
-        Question::query()->create($data);
+        Question::query()->create(array_merge($data, ['draft' => true]));
 
         return to_route('dashboard');
     }
