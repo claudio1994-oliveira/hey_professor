@@ -24,4 +24,5 @@ do
     git add "${FILE}";
 done;
 
+echo "Arquivos formatados com sucesso! ... 😉";
 exit 0;
