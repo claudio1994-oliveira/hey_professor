@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
 use Closure;
 use Illuminate\Http\{RedirectResponse, Request};
 
@@ -21,7 +20,8 @@ class QuestionController extends Controller
                 },
             ],
         ]);
-        Question::query()->create(array_merge($data, ['draft' => true]));
+
+        user()->questions()->create(array_merge($data, ['draft' => true]));
 
         return to_route('dashboard');
     }
