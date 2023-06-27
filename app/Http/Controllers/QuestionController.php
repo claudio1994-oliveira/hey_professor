@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Closure;
 use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
+    public function index(): View
+    {
+        return view('question.index', ['questions' => user()->questions()->get()]);
+    }
+
     public function store(): RedirectResponse
     {
         $data = request()->validate([
@@ -23,6 +29,6 @@ class QuestionController extends Controller
 
         user()->questions()->create(array_merge($data, ['draft' => true]));
 
-        return to_route('dashboard');
+        return back();
     }
 }
