@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/question/like/{question}', LikeController::class)->name('question.like');
     Route::post('/question/unlike/{question}', UnlikeController::class)->name('question.unlike');
     Route::put('/question/publish/{question}', PublishController::class)->name('question.publish');
+    Route::get('/question/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
