@@ -5,9 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use Closure;
 use Illuminate\Http\{RedirectResponse, Request};
+use Illuminate\View\View;
 
 class QuestionController extends Controller
 {
+    public function index(): View
+    {
+        return view('question.index', ['questions' => user()->questions()->get()]);
+    }
+
     public function store(): RedirectResponse
     {
         $data = request()->validate([
@@ -21,8 +27,18 @@ class QuestionController extends Controller
                 },
             ],
         ]);
-        Question::query()->create($data);
 
-        return to_route('dashboard');
+        user()->questions()->create(array_merge($data, ['draft' => true]));
+
+        return back();
+    }
+
+    public function destroy(Question $question): RedirectResponse
+    {
+        $this->authorize('delete', $question);
+
+        $question->delete();
+
+        return back();
     }
 }
