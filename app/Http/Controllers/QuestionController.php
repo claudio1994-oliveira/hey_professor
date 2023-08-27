@@ -41,4 +41,32 @@ class QuestionController extends Controller
 
         return back();
     }
+
+    public function edit(Question $question): View
+    {
+        $this->authorize('update', $question);
+
+        return view('question.edit', ['question' => $question]);
+    }
+
+    public function update(Question $question): RedirectResponse
+    {
+        $this->authorize('update', $question);
+
+        $data = request()->validate([
+            'question' => [
+                'required',
+                'min:10',
+                function (string $attr, mixed $value, Closure $fail) {
+                    if ($value[strlen($value) - 1] != '?') {
+                        $fail('Are you sure tha is a question? It is missing te question mark in the end.');
+                    }
+                },
+            ],
+        ]);
+
+        $question->update($data);
+
+        return to_route('question.index');
+    }
 }
