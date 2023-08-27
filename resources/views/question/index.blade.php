@@ -35,17 +35,23 @@
                         <x-table.tr>
                             <x-table.td>{{ $q->question }}</x-table.td>
                             <x-table.td>
-                                <x-form :action="route('question.publish', ['question' => $q])" put>
-                                    <x-btn.primary type="submit">
-                                        Publish
-                                    </x-btn.primary>
+                                <div class="flex">
+                                    <x-form :action="route('question.publish', ['question' => $q])" put>
+                                        <x-btn.primary type="submit">
+                                            Publish
+                                        </x-btn.primary>
 
-                                </x-form>
-                                <x-form :action="route('question.destroy', ['question' => $q])" delete>
-                                    <x-danger-button type="submit">
-                                        Delete
-                                    </x-danger-button>
-                                </x-form>
+                                    </x-form>
+                                    <x-form :action="route('question.destroy', ['question' => $q])" delete>
+                                        <x-danger-button type="submit">
+                                            Delete
+                                        </x-danger-button>
+                                    </x-form>
+
+                                    <a href="{{ route('question.edit', $q) }}"
+                                        class="ms-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Edit</a>
+                                </div>
+
                             </x-table.td>
                         </x-table.tr>
                     @endforeach

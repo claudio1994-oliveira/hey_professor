@@ -67,6 +67,6 @@ class QuestionController extends Controller
 
         $question->update($data);
 
-        return back();
+        return to_route('question.index');
     }
 }
