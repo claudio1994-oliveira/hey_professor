@@ -48,4 +48,23 @@ class QuestionController extends Controller
 
         return view('question.edit', ['question' => $question]);
     }
+
+    public function update(Question $question): RedirectResponse
+    {
+        $data = request()->validate([
+            'question' => [
+                'required',
+                'min:10',
+                function (string $attr, mixed $value, Closure $fail) {
+                    if ($value[strlen($value) - 1] != '?') {
+                        $fail('Are you sure tha is a question? It is missing te question mark in the end.');
+                    }
+                },
+            ],
+        ]);
+
+        $question->update($data);
+
+        return back();
+    }
 }
