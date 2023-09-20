@@ -37,6 +37,15 @@ class QuestionController extends Controller
     {
         $this->authorize('delete', $question);
 
+        $question->forceDelete();
+
+        return back();
+    }
+
+    public function archive(Question $question): RedirectResponse
+    {
+        $this->authorize('delete', $question);
+
         $question->delete();
 
         return back();
