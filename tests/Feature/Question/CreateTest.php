@@ -64,3 +64,22 @@ test('only authenticated users can create a new question', function () {
 
     $request->assertRedirect(route('login'));
 });
+
+test('question should be unique', function () {
+    $user = User::factory()->create();
+    actingAs($user);
+
+    $request = post(route('question.store'), [
+        'question' => 'Pergunta já existe?',
+    ]);
+
+    $request->assertRedirect();
+    assertDatabaseCount('questions', 1);
+
+    $request = post(route('question.store'), [
+        'question' => 'Pergunta já existe?',
+    ]);
+
+    $request->assertSessionHasErrors(['question' => "The Question Already Exists"]);
+    assertDatabaseCount('questions', 1);
+});
