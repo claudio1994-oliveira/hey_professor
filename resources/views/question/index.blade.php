@@ -42,11 +42,13 @@
                                         </x-btn.primary>
 
                                     </x-form>
-                                    <x-form :action="route('question.destroy', ['question' => $q])" delete>
+                                    <x-form :action="route('question.destroy', ['question' => $q])" delete onsubmit="return confirm('Are you sure?')">
                                         <x-danger-button type="submit">
                                             Delete
                                         </x-danger-button>
                                     </x-form>
+
+
 
                                     <a href="{{ route('question.edit', $q) }}"
                                         class="ms-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Edit</a>
@@ -77,9 +79,45 @@
                         <x-table.tr>
                             <x-table.td>{{ $q->question }}</x-table.td>
                             <x-table.td>
-                                <x-form :action="route('question.destroy', ['question' => $q])" delete>
+                                <x-form :action="route('question.destroy', ['question' => $q])" delete onsubmit="return confirm('Are you sure?')">
                                     <x-danger-button type="submit">
                                         Delete
+                                    </x-danger-button>
+                                </x-form>
+                                <x-form :action="route('question.archive', ['question' => $q])" patch>
+                                    <x-danger-button type="submit">
+                                        Archive
+                                    </x-danger-button>
+                                </x-form>
+                            </x-table.td>
+                        </x-table.tr>
+                    @endforeach
+
+                </tbody>
+            </x-table>
+        </div>
+
+        <hr class="border-gray-700 border-dashed my-4">
+        <div class="dark:text-gray-600 uppercase font-bold mb-1"> Archive Questions</div>
+
+        <div class="dark:text-gray-400 space-y-4">
+
+            <x-table>
+                <x-table.thead>
+                    <tr>
+                        <x-table.th>Question</x-table.th>
+                        <x-table.th>Actions</x-table.th>
+                    </tr>
+                </x-table.thead>
+                <tbody>
+                    @foreach ($archivedQuestions as $q)
+                        <x-table.tr>
+                            <x-table.td>{{ $q->question }}</x-table.td>
+                            <x-table.td>
+
+                                <x-form :action="route('question.restore', ['question' => $q])" patch>
+                                    <x-danger-button type="submit">
+                                        Restore
                                     </x-danger-button>
                                 </x-form>
                             </x-table.td>
