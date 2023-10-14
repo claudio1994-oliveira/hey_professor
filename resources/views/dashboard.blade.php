@@ -7,13 +7,13 @@
     </x-slot>
     <x-container>
 
-        <div class="dark:text-gray-600 uppercase font-bold mb-1"> Question List</div>
-        <div class="dark:text-gray-400 space-y-4">
+        <div class="mb-1 font-bold uppercase dark:text-gray-600"> Question List</div>
+        <div class="space-y-4 dark:text-gray-400">
             @foreach ($questions as $q)
                 <x-question :item="$q"></x-question>
             @endforeach
 
-            {{ $questions->links() }}
+            {{ $questions->withQueryString()->links() }}
         </div>
 
     </x-container>
