@@ -16,6 +16,7 @@ class DashboardController extends Controller
                 ->when(request('search'), function (Builder $query) {
                     $query->where('question', 'like', '%' . request('search') . '%');
                 })
+                ->where('draft', false)
                 ->withSum('votes', 'unlike')
                 ->orderByRaw('
                     case when votes_sum_like is null then 0 else votes_sum_like end desc,

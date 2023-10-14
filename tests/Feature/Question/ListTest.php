@@ -9,7 +9,7 @@ it('should list all the questions', function () {
 
     $user = User::factory()->create();
     actingAs($user);
-    $questions = Question::factory(5)->create();
+    $questions = Question::factory(5)->create(['draft' => false]);
 
     $response = get(route('dashboard'));
 
